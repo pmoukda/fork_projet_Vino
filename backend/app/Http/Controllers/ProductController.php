@@ -8,25 +8,7 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-   /* public function index(Request $request) {
-        $couleur = $request->get('couleur');
-
-        $query = Product::query();
-
-        if ($couleur) {
-            $query->where('couleur', 'like', "%{$couleur}%");
-        }
-
-        $query->where('couleur', 'like', "%{$couleur}%");
-
-        $wines = $query->paginate(12);
-
-        $categories = Product::whereNotNull('couleur')
-                            ->distinct()
-                            ->pluck('couleur');
-        return view('wines.index', compact('wines', 'categories', 'couleur'));
-    }*/
-
+  
         /**
          * @param
          * Fonction qui affiche toutes les bouteilles du catalogue, si la bouteille a une couleur, on l'affiche. On ajoute une pagination de 12 bouteilles par page, on peut avancer, reculer, aller à la fin ou au début de la pagination.
