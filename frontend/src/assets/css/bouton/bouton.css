@@ -1,0 +1,15 @@
+.bouton-vin {
+    background-color: #450C1B;   
+}
+
+.bouton-vin:hover {  
+    background-color: #96384F;
+}
+
+.bouton {
+    @apply text-white px-4 py-2 rounded cursor-pointer;
+}
+
+.boutons-div {
+    margin-bottom: 50px;
+}
