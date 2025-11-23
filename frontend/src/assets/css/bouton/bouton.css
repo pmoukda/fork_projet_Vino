@@ -6,10 +6,27 @@
     background-color: #96384F;
 }
 
+.bouton-rosee {  
+    background-color: #E491A6;
+}
+
+.bouton-rosee:hover {  
+    background-color: #96384F;
+    color: white;
+}
+
 .bouton {
     @apply text-white px-4 py-2 rounded cursor-pointer;
 }
 
 .boutons-div {
     margin-bottom: 50px;
+}
+/* bouton formulaire inscription et connexion*/
+.bouton-accent{
+    background-color:var(--couleur-accent);
+    @apply rounded-lg text-white p-2 mt-5 text-xl cursor-pointer  
+}
+.bouton-accent:hover{
+    background-color: var(--couleur-text)
 }
