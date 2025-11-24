@@ -117,7 +117,7 @@ GRAPHQL;
                 $filtres = [
                     ['attribute' => 'categoryPath', 'like' => $cat],
                     ['attribute' => 'availability_front', 'in' => ['En ligne', 'En succursale']],
-                    ['attribute' => 'visibility', 'in' => ['Catalog','Catalog, Search']]
+                    ['attribute' => 'visibility', 'in' => ['Catalog', 'Catalog, Search']]
                 ];
 
                 $res = $this->extrairePage($taillePage, $page, $filtres);
@@ -150,7 +150,7 @@ GRAPHQL;
                         ]
                     );
                 }
-                Log::info("Page {$page} terminée pour la catégorie {$cat}, produits récupérés : ".count($items));
+                Log::info("Page {$page} terminée pour la catégorie {$cat}, produits récupérés : " . count($items));
                 $page++;
             } while (count($items) === $taillePage);
         }
