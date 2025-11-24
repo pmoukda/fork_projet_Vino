@@ -12,26 +12,16 @@ export default function Footer() {
           {/* LOGO */}
           <h2 className="text-4xl font-serif mb-4 tracking-wide">Vino</h2>
 
-          {/* DESCRIPTION */}
-          <p className="text-sm leading-relaxed text-red-900/80 mb-8">
-            Vino est votre compagnon idéal pour découvrir, gérer et savourer vos bouteilles.
-            Accédez à vos celliers, explorez vos découvertes et profitez d’une expérience raffinée.
-          </p>
-
-          {/* ICÔNES SOCIALES */}
-          <div className="flex justify-center gap-6 mb-10">
-            <a href="#" className="transition hover:text-red-800">
-              <Linkedin className="w-6 h-6" />
-            </a>
-            <a href="#" className="transition hover:text-red-800">
-              <Github className="w-6 h-6" />
-            </a>
-            <a href="#" className="transition hover:text-red-800">
-              <Instagram className="w-6 h-6" />
-            </a>
-            <a href="#" className="transition hover:text-red-800">
-              <Facebook className="w-6 h-6" />
-            </a>
+          {/* --- COLONNE 2 --- */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Navigation</h3>
+            <ul className="space-y-2">
+              <li><a href="/Catalogue" className="hover:text-red-950">Catalogue</a></li>
+              <li><a href="/celliers" className="hover:text-red-950">Mes celliers</a></li>
+              <li><a href="/compte" className="hover:text-red-950">Mon compte</a></li>
+              <li><a href="/inscription" className="hover:text-red-950">Inscription</a></li>
+              <li><a href="/connexion" className="hover:text-red-950">Connexion</a></li>
+            </ul>
           </div>
 
           {/* NAVIGATION CENTRÉE */}

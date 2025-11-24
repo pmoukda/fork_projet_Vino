@@ -53,7 +53,7 @@ export default function Header() {
               <Link to="/compte" className="hover:text-red-950">
                 Gérer mon compte
               </Link>
-              <Link to="/cellier" className="hover:text-red-950">
+              <Link to="/celliers" className="hover:text-red-950">
                 Mon cellier
               </Link>
               <Link to="/cellier/creer" className="hover:text-red-950">
@@ -92,97 +92,66 @@ export default function Header() {
         </div>
       </header>
 
-     {/* ===== MENU MOBILE ===== */}
-<aside
-  className={`fixed top-0 left-0 h-full w-72 bg-orange-50 shadow-2xl p-6 z-50 transform transition-transform duration-300 md:hidden
-    ${menuOuvert ? "translate-x-0" : "-translate-x-full"}`}
->
-  {/* En-tête mobile */}
-  <div className="flex justify-between items-center mb-6">
-    <h2 className="text-3xl font-serif text-red-950">Vino</h2>
-    <button onClick={() => setMenuOuvert(false)}>
-      <X className="w-8 h-8 text-red-950" />
-    </button>
-  </div>
+      {/* ===== MENU MOBILE ===== */}
+      <aside
+        className={`fixed top-0 left-0 h-full w-72 bg-orange-50 shadow-2xl p-6 z-50 transform transition-transform duration-300 md:hidden
+          ${menuOuvert ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        {/* En-tête mobile */}
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-serif text-red-950">Vino</h2>
+          <button onClick={() => setMenuOuvert(false)}>
+            <X className="w-8 h-8 text-red-950" />
+          </button>
+        </div>
 
-  {/* Barre recherche mobile */}
-  <div className="bg-white rounded-full px-4 py-2 flex items-center mb-8 border border-vino-sable">
-    <Search className="text-red-950 w-5 h-5" />
-    <input
-      type="text"
-      placeholder="Rechercher..."
-      className="ml-2 w-full bg-transparent focus:outline-none text-vred-950"
-    />
-  </div>
+        {/* Barre recherche mobile */}
+        <div className="bg-white rounded-full px-4 py-2 flex items-center mb-8 border border-vino-sable">
+          <Search className="text-red-950 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Rechercher..."
+            className="ml-2 w-full bg-transparent focus:outline-none text-vred-950"
+          />
+        </div>
 
-  {/* MENU MOBILE */}
-  <nav className="flex flex-col gap-4 text-lg font-medium">
+        {/* MENU MOBILE */}
+        <nav className="flex flex-col gap-4 text-lg font-medium">
 
-    <Link
-      to="/"
-      className="hover:text-red-950"
-      onClick={() => setMenuOuvert(false)}   //  Ferme le menu
-    >
-      Catalogue
-    </Link>
+          <Link to="/" className="hover:text-red-950">
+            Catalogue
+          </Link>
 
-    {/* Sous-menu Mon compte */}
-    <button
-      onClick={() => setCompteOuvert(!compteOuvert)}
-      className="flex justify-between w-full text-left hover:text-red-950"
-    >
-      Mon compte
-      {compteOuvert ? (
-        <ChevronUp className="w-5 h-5" />
-      ) : (
-        <ChevronDown className="w-5 h-5" />
-      )}
-    </button>
+          {/* Sous-menu Mon compte */}
+          <button
+            onClick={() => setCompteOuvert(!compteOuvert)}
+            className="flex justify-between w-full text-left hover:text-red-950"
+          >
+            Mon compte
+            {compteOuvert ? (
+              <ChevronUp className="w-5 h-5" />
+            ) : (
+              <ChevronDown className="w-5 h-5" />
+            )}
+          </button>
 
-    {compteOuvert && (
-      <div className="ml-4 flex flex-col gap-2">
-        <Link
-          to="/compte"
-          className="hover:text-red-950"
-          onClick={() => setMenuOuvert(false)}   //  Ferme le menu
-        >
-          Gérer mon compte
-        </Link>
-        <Link
-          to="/cellier"
-          className="hover:text-red-950"
-          onClick={() => setMenuOuvert(false)}   // Ferme le menu
-        >
-          Mes celliers
-        </Link>
-        <Link
-          to="/cellier/creer"
-          className="hover:text-red-950"
-          onClick={() => setMenuOuvert(false)}   // Ferme le menu
-        >
-          Ajouter un cellier
-        </Link>
-      </div>
-    )}
+          {compteOuvert && (
+            
+                <div className="ml-4 flex flex-col gap-2">
+                  <Link to="/compte" className="hover:text-red-950">
+                    Gérer mon compte
+                  </Link>
+                  <Link to="/celliers" className="hover:text-red-950">
+                    Gérer mon cellier
+                  </Link>
+                </div>
+              )}
+           
+          
 
-    <Link
-      to="/inscription"
-      className="hover:text-red-950"
-      onClick={() => setMenuOuvert(false)}  
-    >
-      Inscription
-    </Link>
-
-    <Link
-      to="/connexion"
-      className="mt-6 bg-red-950 text-white text-center py-3 rounded-lg hover:text-red-950 hover:bg-red-100 transition"
-      onClick={() => setMenuOuvert(false)}   
-    >
-      Connexion
-    </Link>
-
-  </nav>
-</aside>
+          <Link to="/inscription" className="hover:text-red-950">
+            Inscription
+          </Link>
 
     </>
   );
