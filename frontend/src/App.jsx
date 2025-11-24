@@ -18,7 +18,10 @@ export default function App() {
         <Route path="/" element={<Catalogue />} />         
         <Route path="/produit/:id" element={<FicheProduit />} />      
         <Route path="/user/:id/celliers" element={<CellierUtilisateur />} />
-        <Route path="/cellier/creer" element={<CreerCellier />} />      
+        <Route path="/cellier/creer" element={<CreerCellier />} /> 
+       
+       
+     
       </Routes>
       </div>
     </Layout>
