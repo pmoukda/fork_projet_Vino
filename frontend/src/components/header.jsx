@@ -22,13 +22,13 @@ export default function Header() {
         {/* LOGO */}
         <Link
           to="/"
-          className="text-2xl font-serif tracking-tight text-red-950"
+          className="text-2xl font-medium tracking-tight text-red-950"
         >
           Vino
         </Link>
 
         {/* BARRE DE RECHERCHE */}
-        <div className="hidden md:flex items-center w-1/3 bg-white rounded-full px-4 py-2 border border-vino-sable">
+        <div className="hidden md:flex items-center w-1/4 bg-white rounded-full px-4 py-2 border border-red-950">
           <Search className="text-red-950 w-5 h-5" />
           <input
             type="text"
@@ -50,7 +50,7 @@ export default function Header() {
               Mon compte 
             </button>
 
-            <div className="absolute hidden group-hover:flex flex-col bg-white border border-vino-sable shadow rounded mt-2 w-48 p-3 z-40">
+            <div className="absolute hidden group-hover:flex flex-col bg-white border border-orange-50 shadow rounded mt-2 w-48 p-3 z-40">
               <Link to="/compte" className="hover:text-red-950">
                 Gérer mon compte
               </Link>
