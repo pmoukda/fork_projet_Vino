@@ -26,6 +26,12 @@ Aucun autre fichier ne devrait avoir ces variables :root suivantes.
 }
 
 /* mon CSS */
+
+.formulaire_de_filtre {
+    display:flex;
+    flex-direction: row;
+}
+
 .custom-select {
     background-color: var(--rouge_lecture);
     color: white;
@@ -34,34 +40,39 @@ Aucun autre fichier ne devrait avoir ces variables :root suivantes.
     padding: 12px 17px;
     font-size: 20px;
     cursor: pointer;
-    transition-duration: 0.2s;
     position: relative;
-}
-
-.custom-select .selected {
-    /* the visible selected value */
+    min-width: 255px;
 }
 
 .custom-select .options {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;  
     position: absolute;
+    top: 100%;
+    left: 0; 
     width: 100%;
     background-color: var(--rouge_lecture);
     border-radius: 0 0 15px 15px;
     overflow: hidden;
     z-index: 10;
+    transition: background-color 0.2s, color 0.2s;
 }
 
+
 .custom-select .option {
+    margin-left:0px;
     padding: 12px 17px;
     cursor: pointer;
+    transition-duration: 0.2s;
 }
 
 .custom-select .option:hover {
     background-color: var(--rose_vino);
     color: var(--rouge_lecture);
+}
+
+.custom-select.open {
+    border-radius: 15px 15px 0px 0px;
 }
 
 
