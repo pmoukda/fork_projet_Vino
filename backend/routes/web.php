@@ -21,4 +21,4 @@ Route::get('/', function () {
 
 //Route::get('/scrape-all', [ScraperController::class, 'scrapeAll']);
 //Route::middleware('auth:sanctum')->get('/scrape-all', [ScraperController::class, 'scrapeAll']);
-Route::get('/scrape-test', [ScraperController::class, 'scrapeTest']);
+Route::get('/scrape-test', [ScraperController::class, 'scrapePage']);

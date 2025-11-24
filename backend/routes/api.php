@@ -46,6 +46,7 @@ Route::get('/celliers/{cellierId}/produits', [CellierController::class, 'affiche
 Route::post('/celliers/{cellierId}/produits', [CellierController::class, 'ajouterProduit']);
 Route::put('/celliers/{cellierId}/produits/{produitId}', [CellierController::class, 'modifierQuantite']);
 Route::delete('/celliers/{cellierId}/produits/{produitId}', [CellierController::class, 'supprimerProduit']);
+Route::post('/celliers', [CellierController::class, 'storeAPI']);
 
 Route::get('/celliers/{id}', [CellierController::class, 'afficherProduit']);
 Route::get('/couleurs', [ProduitController::class, 'getCouleurs']);

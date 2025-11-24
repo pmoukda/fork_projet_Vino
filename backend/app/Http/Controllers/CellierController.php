@@ -14,12 +14,14 @@ class CellierController extends Controller
         return response()->json($celliers);
     }*/
 
-    public function produits($cellierId) {
+    public function produits($cellierId)
+    {
         $cellier = Cellier::with('produits')->findOrFail($cellierId);
         return response()->json($cellier->produits);
     }
 
-    public function index() {
+    public function index()
+    {
         $userId = 1; // utilisateur unique pour le moment
         // Récupère tous les celliers de l'utilisateur avec leurs produits
         $celliers = Cellier::with('produits')
@@ -28,15 +30,38 @@ class CellierController extends Controller
         return response()->json($celliers);
     }
 
-    
+    // Ajouter une nouvelle méthode pour créer un cellier via l'API
+    public function storeAPI(Request $request)
+    {
 
-    public function afficherProduit($cellierId) {
+        $validated = $request->validate([
+            'nom' => 'required|string|max:100',
+            'id_usager' => 'required|integer',
+        ], [
+            'nom.required' => 'Le nom du cellier est obligatoire.',
+            'nom.max' => 'Le nom ne peut pas dépasser 100 caractères.',
+        ]);
+
+        $cellier = Cellier::create($validated);
+
+        return response()->json([
+            'message' => 'Cellier créé avec succès.',
+            'cellier' => $cellier
+        ], 201);
+    }
+
+
+
+
+    public function afficherProduit($cellierId)
+    {
         $cellier = Cellier::with('produits')->findOrFail($cellierId);
         return response()->json($cellier);
-    } 
+    }
 
-    
-    public function ajouterProduit(Request $request, $cellierId) {
+
+    public function ajouterProduit(Request $request, $cellierId)
+    {
         $cellier = Cellier::findOrFail($cellierId);
         $produitId = $request->input('produit_id');
         $quantite = $request->input('quantite', 1);
@@ -65,7 +90,8 @@ class CellierController extends Controller
         return response()->json(['message' => 'Quantité mise à jour']);
     }
 
-    public function supprimerProduit(Request $request, $cellierId, $produitId) {
+    public function supprimerProduit(Request $request, $cellierId, $produitId)
+    {
         $cellier = Cellier::findOrFail($cellierId);
         $item = $cellier->produits()->where('produit_id', $produitId)->first();
 
