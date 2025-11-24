@@ -52,7 +52,7 @@ const bouteillesParPage = 12;
 		
 	
 		<div className="grilleBouteille">
-			{Array.isArray(produits) && produitsFiltres.map((p) => (
+			{Array.isArray(produits) && produits.map((p) => (
 				
 					<div className="carteBouteille" key={p.id}>
 						<img className="imageBouteille" src={p.image} alt="Nom de l'image {p.name} "/>
