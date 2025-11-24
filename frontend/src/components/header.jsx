@@ -6,7 +6,6 @@ import {
   X,
   ChevronDown,
   ChevronUp,
-  Languages,
 } from "lucide-react";
 import BoutonDeconnexion from "./boutonDeconnexion";
 
@@ -51,13 +50,18 @@ export default function Header({deconnexion}) {
               Mon compte 
             </button>
 
-            <div className="absolute hidden group-hover:flex flex-col bg-white border border-orange-50 shadow rounded mt-2 w-48 p-3 z-40">
+            <div className="absolute hidden group-hover:flex flex-col bg-white border border-orange-50 shadow rounded mt-2 w-50 p-3 z-40">
               <Link to="/compte" className="hover:text-red-950">
                 Gérer mon compte
               </Link>
-              <Link to="/cellier" className="hover:text-red-950">
+              <Link to="/celliers" className="hover:text-red-950">
                 Mon cellier
               </Link>
+              <Link to="/cellier/creer" className="hover:text-red-950">
+                Ajouter un cellier
+              </Link>
+
+              
             </div>
           </div>
 
@@ -74,14 +78,14 @@ export default function Header({deconnexion}) {
           </Link>
           <BoutonDeconnexion deconnexion={deconnexion} />
 
-          <Languages className="w-6 h-6 text-red-950 cursor-pointer" />
+         
         </nav>
 
 
         {/* Icônes Mobile */}
         <div className="md:hidden flex items-center gap-4">
           
-          <Languages className="w-6 h-6 text-red-950" />
+          
           <button onClick={() => setMenuOuvert(true)}>
             <Menu className="w-7 h-7 text-red-950" />
           </button>
