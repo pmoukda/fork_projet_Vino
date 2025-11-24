@@ -3,6 +3,7 @@ import { getproduits } from "../api/produits";
 import { Link } from "react-router-dom";
 import Filtre from "../components/Filtre";
 
+
 /**
  * @param
  * Fonction qui liste le catalogue de bouteilles 
@@ -13,8 +14,7 @@ const [produits, setproduits] = useState([]);
 const [pageCourante, setPageCourante] = useState(1);
 const [totalPages, setTotalPages] = useState(1);
 const [filtre, setFiltre] = useState("");
-const produitsFiltres = produits.filter(p => filtre === "" || p.couleur === filtre);
-
+const [ordre, setOrdre] = useState("");
 
 const bouteillesParPage = 12;
 
@@ -48,9 +48,9 @@ const bouteillesParPage = 12;
     <div className="contenu">
 		<h1 className="mt-10 mb-6 text-4xl text-bold text-center">Catalogue</h1>
 
-		<Filtre filtre={filtre} setFiltre={setFiltre} />
+		<Filtre filtre={filtre} setFiltre={setFiltre} ordre={ordre} setOrdre={setOrdre} setproduits={setproduits}/>
+
 		
-	
 		<div className="grilleBouteille">
 			{Array.isArray(produits) && produits.map((p) => (
 				

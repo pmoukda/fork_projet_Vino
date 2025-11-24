@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axiosClient from "../api/axios";
 
-export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
+export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits }) {
 	const [couleurs, setCouleurs] = useState([]);
 	const [open, setOuvert] = useState(false);
 	const [openOrder, setOuvertOrdre] = useState(false);
@@ -14,6 +14,26 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 			.catch(err => console.error(err));
 	}, []);
 
+
+	useEffect(() => {
+		if (!ordre) return;
+
+		setproduits(prev => {
+			const sorted = [...prev];
+			if (ordre === "anneeJeuneVieux") {
+				sorted.sort((a,b) => a.annee - b.annee);
+			} else if (ordre === "anneeVieuxJeune") {
+				sorted.sort((a,b) => b.annee - a.annee);
+			} else if (ordre === "prixBasHaut") {
+				sorted.sort((a,b) => a.price - b.price);
+			} else if (ordre === "prixHautBas") {
+				sorted.sort((a,b) => b.price - a.price);
+			}
+			return sorted;
+		});
+	}, [ordre]);
+
+
 	useEffect(() => {
 		if (ordre === "anneeJeuneVieux") {
 			setproduits((prev) =>
@@ -21,7 +41,6 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 			);
 		}
 	}, [ordre]);
-
 
 	// Detection de click hors du dropdown
 	useEffect(() => {
@@ -37,15 +56,12 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const lesFiltresOrdre = {
-		anneeJeuneVieux: "anneeJeuneVieux",
-		anneeVieuxJeune: "anneeVieuxJeune",
-		prixBasHaut: "prixBasHaut",
-		prixHautBas: "prixHautBas"
-	};
-
-
-
+	const lesFiltresOrdre = [
+		"anneeJeuneVieux",
+		"anneeVieuxJeune",
+		"prixBasHaut",
+		"prixHautBas"
+	];
 
 	return (
 		<form className="formulaire_de_filtre" style={{ marginBottom: "1rem" }}>
@@ -79,7 +95,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 				<div className="selected">{ordre || "Trier par"}</div>
 				{openOrder && (
 					<ul className="options">
-						{ordreOptions.map(o => (
+						{lesFiltresOrdre.map(o => (
 							<li
 								key={o}
 								className="option"
