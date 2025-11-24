@@ -11,7 +11,6 @@ import "./App.css";
 export default function App() {
   return (
     <Layout>
-      <div className="w-full max-w-screen-sm mx-auto px-4">
       <Routes>
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/connexion" element={<Auth />} />
@@ -19,7 +18,6 @@ export default function App() {
         <Route path="/produit/:id" element={<FicheProduit />} />
         <Route path="/celliers" element={<CellierUtilisateur />} />
       </Routes>
-      </div>
     </Layout>
   );
 }

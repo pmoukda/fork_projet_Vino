@@ -42,6 +42,10 @@ export default function Auth() {
 
       // Conserver le token dans le LocalStorage
       localStorage.setItem("token", response.data.token);
+      
+      // Conserver les infos de l'usager dans le LocalStorage
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
 
       // Vider les champs après soumission
       setCourriel('')
@@ -67,9 +71,9 @@ export default function Auth() {
   return (
     <section className="mt-30">
       {msgSucces &&(
-        <p className="text-green-600 border p-2 m-2 rounded ">{msgSucces} </p>  
+        <p className="text-green-600 border p-4 m-2 rounded">{msgSucces} </p>  
       )}
-      <form className="flex flex-col space-y-4 p-4 bg-form rounded-lg" onSubmit={gererSoumission}>
+      <form className="flex flex-col space-y-4 p-4 bg-form rounded-lg w-full max-w-screen-sm mx-auto" onSubmit={gererSoumission}>
         <h1 className="text-4xl font-bold">Se connecter</h1>
         <div className="flex flex-col mt-2 border-t border-gray-200 pt-5">
           {erreurs.general && <p className="text-red-600">{erreurs.general}</p>}

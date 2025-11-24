@@ -7,8 +7,9 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import BoutonDeconnexion from "./boutonDeconnexion";
 
-export default function Header() {
+export default function Header({deconnexion}) {
   const [menuOuvert, setMenuOuvert] = useState(false);
   const [compteOuvert, setCompteOuvert] = useState(false);
  
@@ -75,12 +76,11 @@ export default function Header() {
           >
             Connexion
           </Link>
+          <BoutonDeconnexion deconnexion={deconnexion} />
 
          
         </nav>
 
-
-        
 
         {/* Icônes Mobile */}
         <div className="md:hidden flex items-center gap-4">
@@ -137,22 +137,30 @@ export default function Header() {
 
           {compteOuvert && (
             
-                <div className="ml-4 flex flex-col gap-2">
-                  <Link to="/compte" className="hover:text-red-950">
-                    Gérer mon compte
-                  </Link>
-                  <Link to="/celliers" className="hover:text-red-950">
-                    Gérer mon cellier
-                  </Link>
-                </div>
-              )}
+            <div className="ml-4 flex flex-col gap-2">
+              <Link to="/compte" className="hover:text-red-950">
+                Gérer mon compte
+              </Link>
+              <Link to="/cellier" className="hover:text-red-950">
+                Gérer mon cellier
+              </Link>
+            </div>
+          )}
            
-          
-
           <Link to="/inscription" className="hover:text-red-950">
             Inscription
           </Link>
 
+          {/* Bouton connexion mobile */}
+          <Link
+            to="/connexion"
+            className="mt-6 bg-red-950 text-white text-center py-3 rounded-lg hover:text-red-950 hover:bg-red-100 text-red-950 transition"
+          >
+            Connexion
+          </Link>
+          <BoutonDeconnexion deconnexion={deconnexion} />
+        </nav>
+      </aside>
     </>
   );
 }

@@ -36,7 +36,11 @@ class AuthController extends Controller
         
         return response()->json([
             'message' => 'Vous êtes maintenant connecté!',
-            'user'=> $usager,
+            'user' => [
+                'id' => $usager->id,
+                'name' => $usager->name,
+                'email' => $usager->email,
+            ],
             'token' => $token
         ]);
     }
@@ -45,12 +49,12 @@ class AuthController extends Controller
      * Remove the specified resource from storage.
      * Fonction pour se déconnecté
      */
-    public function destroy($request)
+    public function destroy( Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
-            'message:' => 'Vous êtes déconnecté!'
-         ]);
+            'message' => 'Vous êtes déconnecté!'
+        ]);
     }
 }
