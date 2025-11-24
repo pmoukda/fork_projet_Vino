@@ -8,6 +8,19 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 	const dropdownRef = useRef(null);
 	const orderDropdownRef = useRef(null);
 
+	const lesFiltresOrdre = [
+		"Par année (Jeune-Vieux)",
+		"Par année (Vieux-Jeune)",
+		"Par prix (Bas-Haut)",
+		"Par prix (Haut-Bas)"
+	];
+	const ordreMap = {
+		"Par année (Jeune-Vieux)": "anneeJeuneVieux",
+		"Par année (Vieux-Jeune)": "anneeVieuxJeune",
+		"Par prix (Bas-Haut)": "prixBasHaut",
+		"Par prix (Haut-Bas)": "prixHautBas"
+	};
+
 	useEffect(() => {
 		axiosClient.get("/couleurs")
 			.then(res => setCouleurs(res.data))
@@ -18,28 +31,16 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 	useEffect(() => {
 		if (!ordre) return;
 
+		const key = ordreMap[ordre]; // Permet de sécuritairement changer le texte sans détruire les variables
+
 		setproduits(prev => {
 			const sorted = [...prev];
-			if (ordre === "anneeJeuneVieux") {
-				sorted.sort((a,b) => a.annee - b.annee);
-			} else if (ordre === "anneeVieuxJeune") {
-				sorted.sort((a,b) => b.annee - a.annee);
-			} else if (ordre === "prixBasHaut") {
-				sorted.sort((a,b) => a.price - b.price);
-			} else if (ordre === "prixHautBas") {
-				sorted.sort((a,b) => b.price - a.price);
-			}
+			if (key === "anneeJeuneVieux") sorted.sort((a,b) => a.annee - b.annee);
+			else if (key === "anneeVieuxJeune") sorted.sort((a,b) => b.annee - a.annee);
+			else if (key === "prixBasHaut") sorted.sort((a,b) => a.price - b.price);
+			else if (key === "prixHautBas") sorted.sort((a,b) => b.price - a.price);
 			return sorted;
 		});
-	}, [ordre]);
-
-
-	useEffect(() => {
-		if (ordre === "anneeJeuneVieux") {
-			setproduits((prev) =>
-				[...prev].sort((a, b) => a.annee - b.annee)
-			);
-		}
 	}, [ordre]);
 
 	// Detection de click hors du dropdown
@@ -55,13 +56,6 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-
-	const lesFiltresOrdre = [
-		"anneeJeuneVieux",
-		"anneeVieuxJeune",
-		"prixBasHaut",
-		"prixHautBas"
-	];
 
 	return (
 		<form className="formulaire_de_filtre" style={{ marginBottom: "1rem" }}>
