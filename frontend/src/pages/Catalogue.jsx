@@ -13,7 +13,8 @@ export default function Catalogue() {
 const [produits, setproduits] = useState([]);
 const [pageCourante, setPageCourante] = useState(1);
 const [totalPages, setTotalPages] = useState(1);
-const [filter, setFilter] = useState("");
+const [filtre, setFiltre] = useState("");
+const [ordre, setOrdre] = useState("");
 
 // Obtenir les infos de l'usager 
 const user = JSON.parse(localStorage.getItem("user"));
