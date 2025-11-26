@@ -46,7 +46,6 @@ const bouteillesParPage = 12;
 		if (pageCourante > 1) setPageCourante(pageCourante - 1);
 	};
 
-
   return (
 	  <div className="contenu">
         {/* <p className="flex justify-end mb-15 text-sm">Bienvenue, {user.name} !</p> */}
