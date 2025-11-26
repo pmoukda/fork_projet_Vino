@@ -35,5 +35,7 @@ Route::put('/celliers/{cellierId}/produits/{produitId}', [CellierController::cla
 Route::delete('/celliers/{cellierId}/produits/{produitId}', [CellierController::class, 'supprimerProduit']);
 
 Route::get('/celliers/{id}', [CellierController::class, 'afficherProduit']);
+
+/* À Hannah */
 Route::get('/identite_produit', [ProduitController::class, 'getCouleurs']);
 Route::get('/produits/couleur/{identite_produit}', [ProduitController::class, 'getProduitsParCouleur']);

@@ -98,7 +98,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 				className={`custom-select ${openOrder ? "open" : ""}`}
 				onClick={() => setOuvertOrdre(!openOrder)}
 			>
-				<div className="selected">{ordre || "Trier par"}</div>
+				<div className="selected">{"Trier par"}</div>
 				{openOrder && (
 					<ul className="options">
 						{lesFiltresOrdre.map(o => (
