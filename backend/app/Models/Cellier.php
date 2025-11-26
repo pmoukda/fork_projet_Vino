@@ -21,11 +21,11 @@ class Cellier extends Model
     public function produits()
     {
         return $this->belongsToMany(
-            Produit::class,       
-            'cellier_produit',    
-            'cellier_id',     
+            Produit::class,
+            'cellier_produit',
+            'cellier_id',
             'produit_id'
         )->withPivot('quantite')
-         ->withTimestamps();
+            ->withTimestamps();
     }
 }

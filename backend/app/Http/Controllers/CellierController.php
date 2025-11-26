@@ -8,27 +8,60 @@ use App\Models\Cellier;
 
 class CellierController extends Controller
 {
-   
-    public function produits($cellierId) {
-        $celliers = Cellier::with('produits')->findOrFail($cellierId);
-        return response()->json($celliers->produits);
+    /*public function index($userId)
+    {
+        $celliers = Cellier::where('user_id', $userId)->get();
+        return response()->json($celliers);
+    }*/
+
+    public function produits($cellierId)
+    {
+        $cellier = Cellier::with('produits')->findOrFail($cellierId);
+        return response()->json($cellier->produits);
     }
 
-    public function index(Request $request) {
-        $user = $request->user(); // utilisateur connecté via Sanctum
-        $celliers = Cellier::with('produits')->where('user_id', $user->id)->get();
-        return response()->json($celliers);
-    }    
+    public function index()
+    {
+        // ici on retourne les celliers de l’utilisateur 1 TEMPORAIREMENT
+        $userId = 1;
 
+        $celliers = Cellier::with('produits')
+            ->where('user_id', $userId)
+            ->get();
+
+        return response()->json($celliers);
+    }
+
+    public function creerCellier(Request $request)
+    {
+        // Valider les données envoyées par React
+        $validated = $request->validate([
+            'nom' => 'required|string|max:100',
+            'user_id' => 'required|integer'
+        ]);
+
+        // Créer le cellier
+        $cellier = Cellier::create([
+            'nom' => $validated['nom'],
+            'user_id' => $validated['user_id']
+        ]);
+
+        return response()->json([
+            'message' => 'Cellier créé avec succès.',
+            'cellier' => $cellier
+        ], 201);
+    }
 
 
     public function afficherProduit($cellierId)
     {
         $cellier = Cellier::with('produits')->findOrFail($cellierId);
         return response()->json($cellier);
-    } 
-    
-    public function ajouterProduit(Request $request, $cellierId) {
+    }
+
+
+    public function ajouterProduit(Request $request, $cellierId)
+    {
         $cellier = Cellier::findOrFail($cellierId);
         $produitId = $request->input('produit_id');
         $quantite = $request->input('quantite', 1);

@@ -30,6 +30,7 @@ Route::post('/inscription', [UserController::class, 'store']);
 
 Route::get('/produits', [produitController::class, 'index']);
 Route::get('/produits/{id}', [produitController::class, 'show']);
+Route::get('/celliers', [CellierController::class, 'index']);
 
 // Routes d'authentification
 Route::post('/connexion', [AuthController::class, 'store']);
@@ -40,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/celliers/{cellierId}/produits', [CellierController::class, 'ajouterProduit']);
     Route::put('/celliers/{cellierId}/produits/{produitId}', [CellierController::class, 'modifierQuantite']);
     Route::delete('/celliers/{cellierId}/produits/{produitId}', [CellierController::class, 'supprimerProduit']);
+    Route::post('/celliers', [CellierController::class, 'creerCellier']);
 });
 
 //Route::get('/users/{userId}/celliers', [CellierController::class, 'index']);

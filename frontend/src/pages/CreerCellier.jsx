@@ -1,36 +1,33 @@
 // Importation des bibliothèques
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CreerCellier() {
   const [nomCellier, setNomCellier] = useState("");
   const [erreurs, setErreurs] = useState({});
   const [message, setMessage] = useState("");
 
-  const navigation = useNavigate();
 
-  // Empêcher le rechargement de la page et envoyer au backend
+
   const gererSoumission = async (e) => {
     e.preventDefault();
 
-    // Réinitialiser messages
     setErreurs({});
     setMessage("");
 
     try {
-      // À adapter : id_usager viendra plus tard de l'authentification
       const reponse = await axios.post("http://localhost:8000/api/celliers", {
         nom: nomCellier,
-        id_usager: 1,
+        user_id: 1,  // Remplacez par l'ID de l'utilisateur connecté
       });
 
-      // Vider le champ après succès
       setNomCellier("");
       setMessage(reponse.data.message || "Cellier créé avec succès !");
 
-      // Option : redirection vers la liste des celliers
-      // navigation("/celliers");
+     
+
+
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setErreurs(error.response.data.errors);
@@ -53,7 +50,7 @@ export default function CreerCellier() {
             Nom du cellier
           </label>
           <input
-            className="px-2 py-1 bg-white rounded w-full focus:outline-none focus:border-green-200 focus:ring-1 focus:ring-green-200"
+            className="px-2 py-1 bg-white rounded w-full focus:outline-none focus:border-red-300 focus:ring-1 focus:ring-red-300"
             type="text"
             id="nomCellier"
             name="nom"
@@ -61,15 +58,11 @@ export default function CreerCellier() {
             value={nomCellier}
             onChange={(e) => setNomCellier(e.target.value)}
           />
-          {erreurs.nom && (
-            <p className="text-red-500 pt-2">{erreurs.nom[0]}</p>
-          )}
+          {erreurs.nom && <p className="text-red-500 pt-2">{erreurs.nom[0]}</p>}
         </div>
 
         {message && (
-          <p className="text-sm font-semibold text-green-700 pt-2">
-            {message}
-          </p>
+          <p className="text-sm font-semibold text-green-700 pt-2">{message}</p>
         )}
 
         <input
