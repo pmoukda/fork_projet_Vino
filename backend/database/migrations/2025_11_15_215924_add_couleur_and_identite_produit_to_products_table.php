@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('produits', function (Blueprint $table) {
-            $table->string('couleur')->nullable()->after('category');
-            $table->string('identite_produit')->nullable()->after('couleur');
+            $table->string('couleur')->nullable();
+            $table->string('identite_produit')->nullable();
         });
     }
 
