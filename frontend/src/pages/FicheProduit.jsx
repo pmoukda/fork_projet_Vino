@@ -7,7 +7,7 @@ import api from "../api/axios"; // ton axios configuré avec baseURL, withCreden
  * @param {*} param0 
  * @returns Retourne la fiche de détail d'un vin
  */
-export default function FicheProduit({  }) {
+ const FicheProduit = () => {
     const { id } = useParams();
     const [produit, setProduit] = useState(null);
     const [celliers, setCelliers] = useState([]);
