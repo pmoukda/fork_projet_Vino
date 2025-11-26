@@ -3,6 +3,7 @@ import { getproduits } from "../api/produits";
 import { Link } from "react-router-dom";
 import Filtre from "../components/Filtre";
 
+
 /**
  * @param
  * Fonction qui liste le catalogue de bouteilles 
@@ -12,39 +13,50 @@ export default function Catalogue() {
 const [produits, setproduits] = useState([]);
 const [pageCourante, setPageCourante] = useState(1);
 const [totalPages, setTotalPages] = useState(1);
-const [filter, setFilter] = useState("");
+const [filtre, setFiltre] = useState("");
+const [ordre, setOrdre] = useState("asc");
 
-
+// Obtenir les infos de l'usager 
+const user = JSON.parse(localStorage.getItem("user"));
+ 
 const bouteillesParPage = 12;
 
- useEffect(() => {
-    getproduits(pageCourante, bouteillesParPage)
-      .then((res) => {
-		console.log("API DATA =>", res.data);
-      	setproduits(res.data);
-		setproduits(res.data.data || []);        // Tableau des produits
-        setTotalPages(res.data.last_page || 1);
-      })
-      .catch((err) => console.error("Erreur API :", err));
-  }, [pageCourante]);
+	useEffect(() => {
+		getproduits(pageCourante, bouteillesParPage, filtre)
+			.then((res) => {
+				console.log("res.data type:", typeof res.data);
+				console.log("res.data actual value:", res.data);
 
-  const prochainePage = () => {
+				if (filtre) {
+					setproduits(Array.isArray(res.data) ? res.data : res.data.data || []);
+					setTotalPages(1);
+				} else {
+					setproduits(res.data.data || []);
+					setTotalPages(res.data.last_page || 1);
+				}
+			})
+			.catch((err) => console.error("Erreur API :", err));
+	}, [pageCourante, filtre]);
+
+	const prochainePage = () => {
 		if (pageCourante < totalPages) setPageCourante(pageCourante + 1);
 	};
 
 	const pagePrecedente = () => {
 		if (pageCourante > 1) setPageCourante(pageCourante - 1);
 	};
-	
+
 
   return (
-    <div className="contenu">
+	  <div className="contenu">
+        {/* <p className="flex justify-end mb-15 text-sm">Bienvenue, {user.name} !</p> */}
 		<h1 className="mt-10 mb-6 text-4xl text-bold text-center">Catalogue</h1>
 
-		<Filtre filter={filter} setFilter={setFilter} />
-	
+	 <Filtre filtre={filtre} setFiltre={setFiltre} ordre={ordre} setOrdre={setOrdre} setproduits={setproduits}/>
+
+		
 		<div className="grilleBouteille">
-			{Array.isArray(produits) && produits.map((p) => (		
+			{Array.isArray(produits) && produits.map((p) => (
 				
 					<div className="carteBouteille" key={p.id}>
 						<img className="imageBouteille" src={p.image} alt="Nom de l'image {p.name} "/>
@@ -75,7 +87,7 @@ const bouteillesParPage = 12;
 					disabled={pageCourante === 1}
 					className="px-4 py-2 bouton bouton-vin text-white mt-50 mb-50 rounded text-lg disabled:text:gray"
 				>
-					◀
+					<span className="boutonRosee">◀</span>
 				</button>					
 				<button className="px-4 py-2 rounded bouton bouton-vin text-white">
 					{pageCourante}
@@ -88,7 +100,7 @@ const bouteillesParPage = 12;
 					disabled={pageCourante === totalPages}
 					className="px-4 py-2 rounded bouton bouton-vin text-white text-lg mt-50 mb-50 disabled:text-gray"
 				>
-					▶
+					<span className="boutonRosee text-md">▶</span>
 				</button>
 			</div>
 		)}
