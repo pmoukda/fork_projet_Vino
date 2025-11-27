@@ -1,6 +1,8 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ModalSupprimer from "./ModalSupprimer";
+
 
 export default function CompteUsager() {
   const [usager, setUsager] = useState("");
@@ -11,6 +13,9 @@ export default function CompteUsager() {
   const [erreurs, setErreurs] = useState({});
   const [msg, setMsg] = useState("");
   const [afficherForm, setAfficherForm] = useState(false); // toggle afficher/cacher le formulaire
+  const [modalVisible, setModalVisible] = useState(false); // toggle afficher/cacher la boite modal 
+
+  const route = useNavigate();
 
   // afficher info de l'usager
   useEffect(() => {
@@ -55,7 +60,7 @@ export default function CompteUsager() {
       setErreurs({});
       setMsg(res.data.message);
       
-      // faire disparaître message après 5 secondes
+      // faire disparaître le message après 5 secondes
       setTimeout(() => setMsg(""), 5000);
 
     } catch (error) {
@@ -65,6 +70,26 @@ export default function CompteUsager() {
       else if(error.response && error.response.data.message){
         setMsg(error.response.data.message);
       }
+    }
+  };
+
+  // Supprimer le compte
+  const supprimerCompte = async () => {
+    
+    try {
+      const res = await axios.delete("http://localhost:8000/api/user", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      });
+
+      localStorage.removeItem("token");
+
+      // Redirige vers la page connexion avec message de succès
+      route('/connexion', {
+        state:{msgCompteSupprime: res.data.message }
+      });
+
+    } catch (error) {
+      setErreurs(error.response?.data?.message || "Erreur lors de la suppression");
     }
   };
 
@@ -83,7 +108,9 @@ export default function CompteUsager() {
           <button className="bouton-edit" onClick={() => setAfficherForm(!afficherForm)}>
             {afficherForm ? "Fermer" : "Modifier mes infos"}
           </button>
-          <button className="bouton-danger">Supprimer mon compte</button>
+          <button className="bouton-danger" onClick={() => setModalVisible(true)}>
+            Supprimer mon compte
+          </button>
         </div>
 
         {/* --- FORMULAIRE (affiché si afficherForm = true) --- */}
@@ -149,6 +176,15 @@ export default function CompteUsager() {
           </form>
         )}
       </div>
+       {/* MODAL SUPPRIMER */}
+    <ModalSupprimer
+      visible={modalVisible}
+      onAnnule={() => setModalVisible(false)}
+      onConfirme={() => {
+        setModalVisible(false);
+        supprimerCompte();
+      }}
+    />
     </section>
   );
 }
