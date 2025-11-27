@@ -58,8 +58,8 @@ const bouteillesParPage = 12;
 				<div className="carteBouteille" key={p.id}>
 					<img className="imageBouteille" src={p.image} alt="Nom de l'image {p.name} "/>
 					<div className="carteContenu">
-					<h3 className="font-bold">{p.name}</h3>
-					<p>{p.identite_produit}</p>
+					<h3 className="font-bold">{p.name} {p.millesime_produit}</h3>
+					<p>{p.identite_produit} - {p.pays_origine}</p>
 					<p>{Number(p.price).toFixed(2)} $</p>	
 					<div className="flex justify-between align-center">
 						<>							<Link key={p.id} to={`/produit/${p.id}`}>			

@@ -51,6 +51,8 @@ Route::middleware('auth:sanctum')->group(function () {
 /* À Hannah */
 Route::get('/identite_produit', [ProduitController::class, 'getCouleurs']);
 Route::get('/produits/couleur/{identite_produit}', [ProduitController::class, 'getProduitsParCouleur']);
+Route::get('/pays', [ProduitController::class, 'getPays']);
+Route::get('/produits/pays/{pays}', [ProduitController::class, 'getProduitsParPays']);
 /* Plus à Hannah */
 
 // routes/web.php, toujours mettre à la fin pour empêcher de rediriger vers React

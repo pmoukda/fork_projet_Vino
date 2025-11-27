@@ -86,4 +86,27 @@ class ProduitController extends Controller
         }
     }
 
+    public function getPays()
+    {
+        try {
+            $pays = Produit::select('pays_origine')
+                ->distinct()
+                ->pluck('pays_origine');
+
+            return response()->json($pays);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getProduitsParPays($pays)
+    {
+        try {
+            $produits = Produit::where('pays_origine', $pays)->get();
+            return response()->json($produits);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 }

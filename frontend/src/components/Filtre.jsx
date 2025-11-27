@@ -8,6 +8,10 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 	const [openOrder, setOuvertOrdre] = useState(false);
 	const dropdownRef = useRef(null);
 	const orderDropdownRef = useRef(null);
+	const paysDropdownRef = useRef(null);
+	const [pays, setPays] = useState([]);
+	const [openPays, setOpenPays] = useState(false);
+
 
 	const lesFiltresOrdre = [
 		"Millésime (Croissant)",
@@ -33,6 +37,9 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 		axiosClient.get("/identite_produit") 
 			.then(res => setIdentites(res.data))
 			.catch(err => console.error(err));
+	}, []);
+	useEffect(() => {
+		axiosClient.get("/pays").then(res => setPays(res.data));
 	}, []);
 
 	useEffect(() => {
@@ -72,24 +79,24 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 				className={`custom-select ${open ? "open" : ""}`}
 				onClick={() => setOuvert(!open)}
 			>
-				<div className="selected">{filtre || "Filtrez par identité"}</div>
+				<div className="selected">{filtre?.type === "identite" ? filtre.value : "Filtrez par identité"}</div>
+
 				{open && (
-					<ul className="options">
+				<ul className="options">
 					{identites.map(i => (
-						<li 
+					<li 
 						key={i} 
 						className="option" 
 						onClick={(e) => { 
-							e.stopPropagation(); 
-							console.log('clicked identite:', i); 
-							setFiltre(i); 
-							setOuvert(false); 
+						e.stopPropagation(); 
+						setFiltre({ type: "identite", value: i }); 
+						setOuvert(false); 
 						}}
-						>
+					>
 						{i}
-						</li>
+					</li>
 					))}
-					</ul>
+				</ul>
 				)}
 			</div>
 
@@ -108,6 +115,36 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 								onClick={() => { setOrdre(o); setOuvertOrdre(false); }}
 							>
 								{o}
+							</li>
+						))}
+					</ul>
+				)}
+			</div>
+
+			<div
+				ref={paysDropdownRef}
+				className={`custom-select ${openPays ? "open" : ""}`}
+				onClick={() => setOpenPays(!openPays)}
+			>
+				<div className="selected">
+					{filtre?.type === "pays" ? filtre.value : "Filtrer par pays"}
+				</div>
+
+
+
+				{openPays && (
+					<ul className="options">
+						{pays.map(p => (
+							<li
+								key={p}
+								className="option"
+								onClick={(e) => {
+									e.stopPropagation();
+									setFiltre({ type: "pays", value: p });
+									setOpenPays(false);
+								}}
+							>
+								{p}
 							</li>
 						))}
 					</ul>
