@@ -47,6 +47,7 @@ class ScrapeJob implements ShouldQueue
 
                     $image = $produit['image']['url'] ?? $produit['small_image']['url'] ?? $produit['thumbnail']['url'] ?? null;
                     $price = $produit['price_range']['minimum_price']['final_price']['value'] ?? null;
+                    $description = $produit['description'];
 
                     $attr1 = collect($produit['custom_attributes'] ?? [])->pluck('value', 'code');
                     $attr2 = collect($item['productView']['attributes'] ?? [])
@@ -70,6 +71,7 @@ class ScrapeJob implements ShouldQueue
                         'name' => $produit['name'],
                         'image' => $image,
                         'price' => $price,
+                        'description' => $description,
                         'pays_origine' => $allAttr['pays_origine'] ?? null,
                         'couleur' => $allAttr['couleur'] ?? null,
                         'millesime_produit' => $allAttr['millesime_produit'] ?? null,
@@ -82,7 +84,7 @@ class ScrapeJob implements ShouldQueue
                     Produit::upsert(
                         $batch,
                         ['sku'],
-                        ['name','image','price','pays_origine','couleur','millesime_produit','identite_produit','categorie']
+                        ['name', 'description', 'image','price','pays_origine','couleur','millesime_produit','identite_produit','categorie']
                     );
                 }
 
