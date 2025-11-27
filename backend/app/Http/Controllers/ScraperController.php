@@ -26,6 +26,53 @@ class ScraperController extends Controller
         ];
     }
 
+    public function scrapePage($taillePage = 12, $pageCourante = 1)
+    {
+        $query = <<<'GRAPHQL'
+query ($pageSize: Int, $currentPage: Int) {
+  products(
+    search: "",
+    filter: {
+      couleur: { neq: "" }
+    }
+    pageSize: $pageSize,
+    currentPage: $currentPage
+  ) {
+    total_count
+    items {
+      sku
+      name
+      image { url }
+      small_image { url }
+      thumbnail { url }
+      price_range {
+        minimum_price {
+          final_price { value }
+        }
+      }
+      custom_attributes {
+        code
+        value
+      }
+    }
+  }
+}
+GRAPHQL;
+
+        $response = Http::withHeaders($this->headers)
+            ->post($this->endpoint, [
+                'query' => $query,
+                "variables" => [
+                    "pageSize" => $taillePage,
+                    "currentPage" => $pageCourante
+                ]
+            ]);
+
+        return $response->json();
+    }
+
+
+
     // GraphQL query
     protected function productSearchQuery()
     {
@@ -117,7 +164,7 @@ GRAPHQL;
                 $filtres = [
                     ['attribute' => 'categoryPath', 'like' => $cat],
                     ['attribute' => 'availability_front', 'in' => ['En ligne', 'En succursale']],
-                    ['attribute' => 'visibility', 'in' => ['Catalog','Catalog, Search']]
+                    ['attribute' => 'visibility', 'in' => ['Catalog', 'Catalog, Search']]
                 ];
 
                 $res = $this->extrairePage($taillePage, $page, $filtres);
@@ -150,7 +197,7 @@ GRAPHQL;
                         ]
                     );
                 }
-                Log::info("Page {$page} terminée pour la catégorie {$cat}, produits récupérés : ".count($items));
+                Log::info("Page {$page} terminée pour la catégorie {$cat}, produits récupérés : " . count($items));
                 $page++;
             } while (count($items) === $taillePage);
         }
