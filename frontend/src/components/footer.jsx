@@ -20,15 +20,15 @@ export default function Footer() {
 
         {/* Icône GitHub */}
         <div className="flex justify-center mt-6">
-          <a
-            href="https://github.com/Equipe-MCHNC/graphql-laravel-react"
+          <Link
+            to="https://github.com/Equipe-MCHNC/graphql-laravel-react"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub du projet"
             className="hover:scale-110 transition"
           >
             <Github className="w-8 h-8" />
-          </a>
+          </Link>
         </div>
 
       </div>
