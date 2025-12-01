@@ -106,7 +106,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 				className={`custom-select ${openOrder ? "open" : ""}`}
 				onClick={() => setOuvertOrdre(!openOrder)}
 			>
-				<div className="selected">{"Trier par"}</div>
+				<div className="selected">{ordre || "Trier par"}</div>
 				{openOrder && (
 					<ul className="options">
 						{lesFiltresOrdre.map(o => (
@@ -129,7 +129,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 				onClick={() => setOpenPays(!openPays)}
 			>
 				<div className="selected">
-					{filtre?.type === "pays" ? filtre.value : "Filtrer par pays"}
+					{filtre.pays || "Filtrer par pays"}
 				</div>
 
 
