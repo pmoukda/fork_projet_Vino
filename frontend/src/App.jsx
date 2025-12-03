@@ -6,31 +6,42 @@ import Layout from "./components/Layout";
 import Auth from "./pages/Auth";
 import Inscription from "./pages/Inscription";
 import CreerCellier from "./pages/CreerCellier";
-
-
+import MenuMobile from "./components/MenuMobile";
 import CompteUsager from "./components/CompteUsager";
-
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import "./App.css";
 
-export default function App() {
+
+function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/inscription" element={<Inscription />} />
+    <>
+      <Header/>
+
+      <main className="pb-24">   {/* important pour ne pas cacher le contenu */}
+        <Routes>
+          <Route path="/inscription" element={<Inscription />} />
         <Route path="/connexion" element={<Auth />} />
         <Route path="/compte" element={<CompteUsager />} />
-        <Route path="/" element={<Catalogue />} />         
-
-        <Route path="/produit/:id" element={<FicheProduit />} />      
+        <Route path="/produits" element={<Catalogue />} />      
+        <Route path="/produits/:id" element={<FicheProduit />} />      
         <Route path="/user/:id/celliers" element={<CellierUtilisateur />} />
         <Route path="/cellier/creer" element={<CreerCellier />} />
-        
-
-
-        <Route path="/produit/:id" element={<FicheProduit />} />
         <Route path="/celliers" element={<CellierUtilisateur />} />
-
-      </Routes>
-    </Layout>
+        </Routes>
+      
+       
+      </main>
+     <Footer />
+      <MenuMobile />   {/* ajout Menu application mobile */}
+      
+    </>
   );
 }
+
+export default App;
+
+
+
+
+

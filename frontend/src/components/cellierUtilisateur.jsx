@@ -3,10 +3,6 @@ import api from "../api/axios";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-
-
-
-
 export default function AfficheCellier() {
 
     const [celliers, setCelliers] = useState([]);

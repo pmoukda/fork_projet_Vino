@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getproduits } from "../api/produits";
 import { Link } from "react-router-dom";
 import Filtre from "../components/Filtre";
-
+import api from "../api/axios";
 
 /**
  * @param
@@ -17,7 +17,11 @@ const [filtre, setFiltre] = useState("");
 const [ordre, setOrdre] = useState("asc");
 
 // Obtenir les infos de l'usager 
-const user = JSON.parse(localStorage.getItem("user"));
+//const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+const user = JSON.parse(localStorage.getItem("user") || "{}"); // avec fallback vide "{}"
+if (!user || Object.keys(user).length === 0) {
+  console.warn("Aucun utilisateur trouvé dans localStorage.");
+}
  
 const bouteillesParPage = 12;
 
@@ -36,16 +40,12 @@ const bouteillesParPage = 12;
 			.catch((err) => console.error("Erreur API :", err));
 	}, [pageCourante, filtre]);
 
-
-
 	const prochainePage = () => {
 		if (pageCourante < totalPages) setPageCourante(pageCourante + 1);
 	};
-
 	const pagePrecedente = () => {
 		if (pageCourante > 1) setPageCourante(pageCourante - 1);
 	};
-
   return (
 
 	  <div className="contenu">        
@@ -58,7 +58,8 @@ const bouteillesParPage = 12;
 			{Array.isArray(produits) && produits.map((p) => (
 				
 				<div className="carteBouteille" key={p.id}>
-					<img className="imageBouteille" src={p.image} alt="Nom de l'image {p.name} "/>
+					<img className="imageBouteille" src={p.image || 'https://cdn.pixabay.com/photo/2012/04/13/11/49/wine-32052_1280.png'}
+  					alt={p.name ? `Nom du vin ${p.name}` : 'Nom du vin non disponible'}/>
 					<div className="carteContenu">
 					<h3 className="font-bold">{p.name} {p.millesime_produit}</h3>
 					<p>{p.identite_produit} - {p.pays_origine}</p>
@@ -84,7 +85,7 @@ const bouteillesParPage = 12;
 					disabled={pageCourante === 1}
 					className="px-4 py-2 bouton bouton-vin text-white mt-2 mb-2 rounded text-lg disabled:text:gray"
 				>
-					<span className="boutonRosee">◀</span>
+					<span className="bouton-rosee">◀</span>
 				</button>					
 				<button className="px-4 py-2 rounded bouton bouton-vin text-white">
 					{pageCourante}
@@ -97,7 +98,7 @@ const bouteillesParPage = 12;
 					disabled={pageCourante === totalPages}
 					className=" p-2 rounded bouton bouton-vin text-white text-lg mt-2 mb-2 disabled:text-gray"
 				>
-					<span className="boutonRosee text-md">▶</span>
+					<span className="bouton-rosee text-md">▶</span>
 				</button>
 			</div>
 		)}

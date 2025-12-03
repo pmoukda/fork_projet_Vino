@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import axiosClient from "../api/axios";
+import api from "../api/axios";
 
 export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits }) {
 	/*const [couleurs, setCouleurs] = useState([]);*/
@@ -11,7 +11,6 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 	const paysDropdownRef = useRef(null);
 	const [pays, setPays] = useState([]);
 	const [openPays, setOpenPays] = useState(false);
-
 
 	const lesFiltresOrdre = [
 		"Millésime (Croissant)",
@@ -34,12 +33,12 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 */
 
 	useEffect(() => {
-		axiosClient.get("/identite_produit") 
+		api.get("/identite_produit") 
 			.then(res => setIdentites(res.data))
 			.catch(err => console.error(err));
 	}, []);
 	useEffect(() => {
-		axiosClient.get("/pays").then(res => setPays(res.data));
+		api.get("/pays").then(res => setPays(res.data));
 	}, []);
 
 	useEffect(() => {
@@ -83,7 +82,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 
 				{open && (
 				<ul className="options">
-					{identites.map(i => (
+				{Array.isArray(identites) && identites.map(i => (
 					<li 
 						key={i} 
 						className="option" 
@@ -108,15 +107,15 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 				<div className="selected">{"Trier par"}</div>
 				{openOrder && (
 					<ul className="options">
-						{lesFiltresOrdre.map(o => (
-							<li
-								key={o}
-								className="option"
-								onClick={() => { setOrdre(o); setOuvertOrdre(false); }}
-							>
-								{o}
-							</li>
-						))}
+						{Array.isArray(lesFiltresOrdre) && lesFiltresOrdre.map(o => (
+					<li
+						key={o}
+						className="option"
+						onClick={() => { setOrdre(o); setOuvertOrdre(false); }}
+					>
+						{o}
+					</li>
+					))}
 					</ul>
 				)}
 			</div>
@@ -129,23 +128,20 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre, setproduits
 				<div className="selected">
 					{filtre?.type === "pays" ? filtre.value : "Filtrer par pays"}
 				</div>
-
-
-
 				{openPays && (
 					<ul className="options">
-						{pays.map(p => (
-							<li
-								key={p}
-								className="option"
-								onClick={(e) => {
-									e.stopPropagation();
-									setFiltre({ type: "pays", value: p });
-									setOpenPays(false);
-								}}
-							>
-								{p}
-							</li>
+						{Array.isArray(pays) && pays.map(p => (
+						<li
+							key={p}
+							className="option"
+							onClick={(e) => {
+							e.stopPropagation();
+							setFiltre({ type: "pays", value: p });
+							setOpenPays(false);
+							}}
+						>
+							{p}
+						</li>
 						))}
 					</ul>
 				)}

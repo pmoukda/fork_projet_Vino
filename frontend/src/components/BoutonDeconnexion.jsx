@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "axios";
 import { useNavigate } from "react-router-dom";
 
 // Fonction déconnexion
@@ -9,7 +9,7 @@ export default function BoutonDeconnexion(){
 
     const deconnexion = async() => {
         try {
-            const response = await axios.post("http://localhost:8000/api/deconnexion",
+            const response = await api.post("/deconnexion",
                 {},
                 { headers: { Authorization: `Bearer ${token}`}}
             );

@@ -1,6 +1,7 @@
 // Importation des bibliothèques
 import { useState } from "react";
-import axios from "axios";
+//import axios from "axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -19,7 +20,7 @@ export default function Incription() {
 
     // Connexion avec la requête du backend via axios
     try {
-    const response = await axios.post("http://localhost:8000/api/inscription", {
+    const response = await api.post("/inscription", {
         name: nom,
         email: courriel,
         password: motDePasse,

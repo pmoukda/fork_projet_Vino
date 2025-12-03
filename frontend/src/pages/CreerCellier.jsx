@@ -24,10 +24,7 @@ export default function CreerCellier() {
     }
 
     try {
-      /*const reponse = await axios.post("http://localhost:8000/api/celliers", {
-        nom: nomCellier,
-        user_id: 1,  // Remplacez par l'ID de l'utilisateur connecté
-      });*/
+      
       const reponse = await api.post("/celliers", { nom: nomCellier });
 
       setNomCellier("");

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../api/axios"; // ton axios configuré avec baseURL, withCredentials et CSRF
+import api from "../api/axios";
 
 /**
  * Fonction fléchée qui affiche les détails d'un vin et qui affiche le formulaire d'ajout du vin sélectionné et qui permet d'ajouter le vin dans le cellier de l'utilisateur connecté. La quantité ajoutée est enregistrée dans la table pivot cellier_produit dans la colonne "quantite"
@@ -16,7 +16,7 @@ import api from "../api/axios"; // ton axios configuré avec baseURL, withCreden
 
     // Récupérer le produit
     useEffect(() => {
-        api.get(`http://localhost:8000/api/produits/${id}`)
+        api.get(`/produits/${id}`)
             .then(res => setProduit(res.data))
             .catch(err => console.error(err));
     }, [id]);
@@ -44,7 +44,7 @@ import api from "../api/axios"; // ton axios configuré avec baseURL, withCreden
     const ajouterProduit = () => {
         if (!produit || !cellierSelectionne) return;
 
-        api.post(`http://localhost:8000/api/celliers/${cellierSelectionne}/produits`, {
+        api.post(`/celliers/${cellierSelectionne}/produits`, {
             produit_id: produit.id,
             quantite: quantite
         })
@@ -93,9 +93,13 @@ import api from "../api/axios"; // ton axios configuré avec baseURL, withCreden
                     value={cellierSelectionne || ''}
                     onChange={e => setCellierSelectionne(e.target.value)}
                 >
-                    {celliers.map(c => (
-                    <option key={c.id} value={c.id}>{c.nom}</option>
-                    ))}
+                    {Array.isArray(celliers) && celliers.length > 0 ? (
+                    celliers.map(c => (
+                        <option key={c.id} value={c.id}>{c.nom}</option>
+                    ))
+                    ) : (
+                    <option disabled>Aucun cellier</option>
+                    )}
                 </select>
                 <div className="gap-sm w-full flex justify-center gap-[2px] mb-4">
                     <button
