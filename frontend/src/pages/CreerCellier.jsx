@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../api/axios";
 import { Link } from "react-router-dom";
 
-export default function CreerCellier() {
+ const CreerCellier = () => {
   
   const [nomCellier, setNomCellier] = useState("");
   const [erreurs, setErreurs] = useState({});
@@ -36,9 +36,6 @@ export default function CreerCellier() {
       }
     }
   };
-  if (!nomCellier) return <div className="points">
-        <span></span><span></span><span></span>
-    </div>;
   return (
     <section className="mt-20">
       <form
@@ -80,3 +77,5 @@ export default function CreerCellier() {
     </section>
   );
 }
+
+export default CreerCellier;

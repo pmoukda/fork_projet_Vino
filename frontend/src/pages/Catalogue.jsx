@@ -24,9 +24,9 @@ const Catalogue = () => {
 		setPageCourante(1);
 	}, [filtre, ordre]);
 
-	if (!user) {
+	/*if (!user) {
 	return <p>Veuillez vous connecter pour voir le catalogue.</p>
-	}
+	}*/
 	useEffect(() => {
 		getproduits(pageCourante, bouteillesParPage, filtre, ordre)
 			.then((res) => {
@@ -55,7 +55,7 @@ const Catalogue = () => {
 	</div>;
   	return (
 		<div className="contenu"> 
-			<p className="flex justify-end mb-15 text-sm">{user && user.name ? `Bienvenue ${user.name} !` : ""}</p>
+			<p className="flex justify-end mb-15 text-sm">{user ? `Bienvenue ${user.name} !` : ""}</p>
 			<h1 className="mt-10 mb-6 text-4xl text-bold text-center">Catalogue</h1>
 			<Filtre filtre={filtre} setFiltre={setFiltre} ordre={ordre} setOrdre={setOrdre} setproduits={setproduits}/>		
 			<div className="grilleBouteille">

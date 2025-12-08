@@ -41,22 +41,22 @@ import api from "../api/axios";
             <hr className="border-t-1 border-dashed bouton-[var(--couleur-texte)] mt-15 mb-15 my-4" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 <div className="flex justify-center">            
-                    <img className="w-full" src={produit.image || 'https://cdn.pixabay.com/photo/2012/04/13/11/49/wine-32052_1280.png'}
-                    alt={produit.name ? `Nom du vin ${produit.name}` : 'Nom du vin non disponible'}/>
+                    <img className="w-sm sm:w-xsm" src={produit.image || 'https://cdn.pixabay.com/photo/2012/04/13/11/49/wine-32052_1280.png'}
+                    alt={produit.name ? `Nom du vin ${produit.name}` : 'Nom du vin non disponible'} loading="lazy"/>
                 </div>               
                 <div className="flex flex-col mt-5 gap-4 h-full">
                     <ul className="space-y-2">
-                        <li className="text-sm md:text-xl lg:text-3lg "><strong>Prix - </strong> {Number(produit.price).toFixed(2)} $</li>
+                        <li className="text-sm md:text-2xl text-[var(--couleur-text)] lg:text-3xl "><strong>Prix - </strong> {Number(produit.price).toFixed(2)} $</li>
                         <li className="text-sm md:text-xl lg:text-3lg "><strong>Catégorie - </strong> {produit.identite_produit}</li>
                         <li className="text-sm md:text-xl lg:text-3lg "><strong>Millésime - </strong> {produit.millesime_produit}</li>
                         <li className="text-sm md:text-xl lg:text-3lg "><strong>Origine - </strong> {produit.pays_origine}</li>
                     </ul>
-                    <div className="flex gap-5 justify-left items-center ">
+                    <div className="flex gap-1 items-center ">
                         <Link className="block w-full" to={`/user/${user ? user.id : ''}/celliers/produits/${produit.id}`}>
-                            <button className="mt-6 px-6 py-3 border-2 hover:border-[var(--couleur-text)] hover:text-[var(--couleur-text)] hover:bg-white rounded-lg bg-[var(--couleur-text)] text-white transition duration-300 cursor-pointer text-sm md:text-md lg:text-lg">Ajouter au cellier</button>
+                            <button className="mt-6 px-6 py-3 border-2  bg-[var(--couleur-form)] text-black hover:border-[var(--couleur-text)] hover:text-[var(--couleur-text)] hover:bg-white rounded-lg transition duration-300 cursor-pointer text-sm md:text-md lg:text-lg">Ajouter au cellier</button>
                         </Link>
-                        <Link>
-                        <button className="mt-6 px-6 py-3 border-2 hover:border-[var(--couleur-text)] hover:text-[var(--couleur-text)] hover:bg-white rounded-lg bg-[var(--couleur-text)] text-white transition duration-300 cursor-pointer text-sm md:text-md lg:text-lg">Ajouter à ma liste</button>
+                        <Link className="block w-full">
+                            <button className="mt-6 px-6 py-3 bg-[var(--couleur-form)] text-black border-2 hover:border-[var(--couleur-text)] hover:text-[var(--couleur-text)] hover:bg-white rounded-lg  transition duration-300 cursor-pointer text-sm md:text-md lg:text-lg">Ajouter à ma liste</button>
                         </Link>
                     </div>
                 </div>
