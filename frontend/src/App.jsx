@@ -12,6 +12,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AjouterProduitCellier from './pages/AjouterProduitCellier'; 
 import "./App.css";
+import MotDePasseOublie from "./pages/MotDePasseOublie";
+import ReinitialiserMotDePasse from "./pages/ReinitialiserMotDePasse";
 
 // Faire afficher les vues de react
 function App() {
@@ -25,6 +27,8 @@ function App() {
         <Routes>
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/" element={<Auth />} />
+          <Route path="/mdp-oublie" element={<MotDePasseOublie />} />
+          <Route path="/mdp-reinitialise" element={<ReinitialiserMotDePasse />} />
           <Route path="/compte" element={<CompteUsager />} />
                  
           <Route path="/produits" element={<Catalogue />} />      
