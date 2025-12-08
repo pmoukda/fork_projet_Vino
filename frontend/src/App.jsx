@@ -12,13 +12,15 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AjouterProduitCellier from './pages/AjouterProduitCellier'; 
 import "./App.css";
+import { useEffect, useState } from "react";
+import api from "./api/axios"
 
 // Faire afficher les vues de react
 function App() {
   
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header recherche={recherche} setRecherche={setRecherche} />
       <main className="pb-24 flex-1 px-4">
         {" "}
         {/* important pour ne pas cacher le contenu */}
