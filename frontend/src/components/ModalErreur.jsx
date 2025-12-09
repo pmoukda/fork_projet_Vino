@@ -1,10 +1,10 @@
-const ModaleErreur = ({visible, message, onFermer}) => {
+const ModaleErreur = ({visible, messageErreur, onFermer}) => {
     if (!visible) return null;
 
     return (
-        <section className="fixed inset-0 bg-white bg-opacity-80 flex justify-center items-center">
+        <section className="fixed inset-0 flex justify-center items-center">
             <div className="bg--200 p-6 rounded-lg shadow-lg w-80">
-                <p className="text-center text-blue text-bold text-2xl">{message}</p>
+                <p className="text-center text-[var(--couleur-text)] text-bold text-2xl">{messageErreur}</p>
                 <div className="flex justify-center gap-2">
                     <button
                         onClick={onFermer}

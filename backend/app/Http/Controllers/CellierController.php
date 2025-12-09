@@ -80,6 +80,22 @@ class CellierController extends Controller
     }
 
 
+    public function modifieNomCellier(Request $request, $id) {
+        $request->validate([
+            'nom' => 'required|string|max:255'
+        ]);
+
+        $cellier = Cellier::findOrFail($id);
+        $cellier->nom = $request->nom;
+        $cellier->save();
+
+        return response()->json([
+            'message' => 'Nom du cellier modifié avec succès.',
+            'cellier' => $cellier
+        ]);
+    }
+
+
     public function modifierQuantite(Request $request, $cellierId, $produitId)
     {
         $quantite = $request->input('quantite', 1);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
+import { FaWineBottle } from "react-icons/fa6";
 import ModaleAjouter from "../components/ModalAjouter";
 import ModaleErreur from "../components/ModalErreur";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +48,7 @@ import { useNavigate } from "react-router-dom";
     
    
     /**
-     * Fonction qui ajoute un vin dans un cellier à partir d'un formulaire d'ajoute. Possibilité d'incrémenter ou décrémenter la quantité avant de soumettre.
+     * Fonction qui ajoute un vin dans un cellier à partir d'un formulaire d'ajout. Possibilité d'incrémenter ou décrémenter la quantité avant de soumettre.
      * @returns retourne le vin ajouté au cellier
      */
     const ajouterProduit = () => {
@@ -59,14 +60,14 @@ import { useNavigate } from "react-router-dom";
         })
         .then((res) => {
             setQuantiteAjoutee(quantite);
-            setMessageErreur(`<p>Vous avez ajouté <strong>${quantiteAjoutee}</strong> bouteille${quantiteAjoutee > 1 ? "s" : ""}.</p>`);
+            setMessageAjout(`<p className="text-center text-[var(--couleur-text)] font-bold text-2xl">Vous avez ajouté <strong>${quantiteAjoutee}</strong> bouteille${quantiteAjoutee > 1 ? "s" : ""} 🍷.</p>`);
             setModalAjouterVisible(true);
             setQuantite(1);
 
             // fermer la modale après 5s et rediriger vers le cellier
             setTimeout(() => {
                 setModalAjouterVisible(false);
-                navigate(`/celliers/${cellierSelectionne}`);
+                navigate(`/celliers`);
             }, 5000);
 
         })
@@ -86,7 +87,7 @@ import { useNavigate } from "react-router-dom";
                 <div className="carteColonne flex flex-col items-center">
                     <img
                         className="w-full h-50 mb-4 rounded object-cover"
-                        src="/public/images/wine-1802763_640.jpg"
+                        src="/images/wine-1802763_640.jpg"
                         alt="Image cellier"
                     />
                     <h2 className="text-xl sm:text-2xl font-semibold mb-3 mt-2">Garnir mon cellier</h2>
@@ -130,9 +131,10 @@ import { useNavigate } from "react-router-dom";
                     </div>
                     <button
                         onClick={ajouterProduit}
-                        className="w-full p-4 bouton-accent text-lg sm:text-xl text-white rounded cursor-pointer border-xs transition-colors"
+                        className="w-full flex gap-2 justify-center items-center p-4 bouton-accent text-lg sm:text-xl text-white rounded cursor-pointer border-xs transition-colors"
                     >
-                        Ajouter
+                        <span>Ajouter</span><FaWineBottle />
+
                     </button>
                 </div>
             </div>

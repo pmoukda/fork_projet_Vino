@@ -5,7 +5,9 @@ import BoutonDeconnexion from "./BoutonDeconnexion";
 import GetUsager from "./GetUsager";
 import GetToken from "./GetToken";
 
-export default function Header({ deconnexion }) {
+
+export default function Header({ deconnexion, recherche, setRecherche }) {
+
   const [menuOuvert, setMenuOuvert] = useState(false);
   const [compteOuvert, setCompteOuvert] = useState(false);
 
@@ -22,14 +24,10 @@ export default function Header({ deconnexion }) {
 
         {/* BARRE DE RECHERCHE */}
         {token && (
-          <div className="hidden md:flex items-center w-1/4 bg-white rounded-full px-4 py-2 border border-red-950">
-            <Search className="text-red-950 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Rechercher un vin..."
-              className="ml-2 w-full bg-transparent focus:outline-none text-red-950"
-            />
-          </div>
+          
+        <div className="hidden md:flex items-center w-1/4">
+          <Recherche recherche={recherche} setRecherche={setRecherche} />
+        </div>
         )}
 
         {/* ===== NAVIGATION DESKTOP ===== */}
@@ -110,7 +108,7 @@ export default function Header({ deconnexion }) {
               </Link>
 
               <Link
-                to="/connexion"
+                to="/"
                 className="bg-red-950 text-white px-4 py-2 rounded-lg hover:bg-red-200 hover:text-red-950 transition"
               >
                 Connexion
@@ -212,7 +210,7 @@ export default function Header({ deconnexion }) {
               </Link>
 
               <Link
-                to="/connexion"
+                to="/"
                 className="mt-4 bg-red-950 text-white text-center py-3 rounded-lg hover:bg-red-100 hover:text-red-950 transition"
                 onClick={() => setMenuOuvert(false)}
               >

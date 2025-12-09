@@ -1,7 +1,6 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "./api/axios";
-
+import { Routes, Route } from "react-router-dom";
 import Catalogue from "./pages/Catalogue";
 import FicheProduit from "./pages/FicheProduit";
 import CellierUtilisateur from "./components/CellierUtilisateur";
@@ -17,7 +16,9 @@ import ListeAchats from "./pages/ListeAchats";
 
 import "./App.css";
 
+// Faire afficher les vues de react
 function App() {
+
   useEffect(() => {
     // Configurer le header au démarrage si token existe
     const token =
@@ -27,9 +28,12 @@ function App() {
     }
   }, []);
 
+  const [recherche, setRecherche] = useState(""); 
+  
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+    
+      <Header recherche={recherche} setRecherche={setRecherche} />
 
       <main className="pb-24 flex-1 px-4">
         {/* important pour ne pas cacher le contenu */}

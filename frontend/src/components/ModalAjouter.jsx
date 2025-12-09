@@ -1,14 +1,14 @@
-const ModaleAjouter = ({visible, message, onFermer}) => {
+const ModaleAjouter = ({visible, messageAjout, onFermer}) => {
     if (!visible) return null;
 
     return (
-        <section className="fixed inset-0 bg-white bg-opacity-80 flex justify-center items-center">
-            <div className="bg--200 p-6 rounded-lg shadow-lg w-80">
-                <p className="text-center text-blue text-bold text-2xl">{message}</p>
-                <div className="flex justify-center gap-2">
+        <section className="fixed inset-0 flex justify-center items-top">
+            <div className="w-full p-6 rounded-lg shadow-lg w-80">                
+                <div className="flex text-[var(--couleur-text)] justify-center gap-2">
+                    {messageAjout}
                     <button
                         onClick={onFermer}
-                        className="px-4 py-2 rounded bg-green-500 text-white"
+                        className="px-4 py-2 rounded  text-white"
                     >
                         Fermer
                     </button>
