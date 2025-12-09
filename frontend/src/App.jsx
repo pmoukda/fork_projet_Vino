@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-
-// Pages
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import api from "./api/axios";
 import Catalogue from "./pages/Catalogue";
 import FicheProduit from "./pages/FicheProduit";
 import Auth from "./pages/Auth";
@@ -21,7 +20,16 @@ import "./App.css";
 
 function App() {
 
-  const [recherche, setRecherche] = useState("");
+  useEffect(() => {
+    // Configurer le header au démarrage si token existe
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+  }, []);
+  
+  const [recherche, setRecherche] = useState(""); 
 
   return (
     <div className="min-h-screen flex flex-col">
