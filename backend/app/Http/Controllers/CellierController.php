@@ -107,7 +107,7 @@ class CellierController extends Controller
     }
 
 
-    public function supprimerProduit(Request $request, $cellierId, $produitId)
+    public function supprimerProduit($cellierId, $produitId)
     {
         $cellier = Cellier::findOrFail($cellierId);
         $item = $cellier->produits()->where('produit_id', $produitId)->first();
@@ -124,4 +124,30 @@ class CellierController extends Controller
             return response()->json($cellier->produits()->where('produit_id', $produitId)->first());
         }
     }
+
+   
+    public function supprimerCellier($cellierId) {
+
+        $cellier = Cellier::with('produits')->find($cellierId);
+
+        if (!$cellier) {
+            return response()->json(['message' => 'Cellier introuvable'], 404);
+        }
+
+        // Vérifier s’il y a des bouteilles
+        $nbBouteilles = $cellier->produits->sum(function ($produit) {
+            return $produit->pivot->quantite ?? 0;
+        });
+
+        if ($nbBouteilles > 0) {
+            return response()->json([
+                'message' => 'Impossible de supprimer ce cellier : il contient encore des bouteilles.'
+            ], 422);
+        }
+       
+        $cellier->delete();
+
+        return response()->json(['message' => 'Cellier supprimé avec succès'], 200);
+    }
+
 }
