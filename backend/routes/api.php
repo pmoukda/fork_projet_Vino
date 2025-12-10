@@ -38,11 +38,10 @@ Route::middleware('auth:sanctum')->post('/deconnexion', [AuthController::class, 
 
 // Routes des celliers
 Route::middleware('auth:sanctum')->group(function () {
-  
     // Routes des produits (vins)
     Route::get('/produits', [ProduitController::class, 'index']);
     Route::get('/produits/{id}', [ProduitController::class, 'show']);
-  
+
     // Routes pour les celliers
     Route::get('/celliers', [CellierController::class, 'index']);
     Route::get('/celliers/{id}', [CellierController::class, 'afficherProduit']);
@@ -51,13 +50,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/celliers/{cellierId}/produits/{produitId}', [CellierController::class, 'supprimerProduit']);
     Route::post('/celliers', [CellierController::class, 'creerCellier']);
     Route::put('/celliers/{id}', [CellierController::class, 'modifieNomCellier']);
+    Route::delete('/celliers/{cellierId}', [CellierController::class, 'supprimerCellier']);
 
     // Routes pour la liste d'achat
     Route::get('/liste-achats', [ListeAchatController::class, 'index']);
     Route::post('/liste-achats/{produit}', [ListeAchatController::class, 'store']);
     Route::put('/liste-achats/{id}', [ListeAchatController::class, 'update']);
     Route::delete('/liste-achats/{id}', [ListeAchatController::class, 'destroy']);
-    
 });
 
 // Routes des filtres
@@ -72,7 +71,6 @@ Route::get('/{any}', function () {
     return view('app');
 })->where('any', '.*');
 
-// Route test 
-Route::get('/test', function() {
+Route::get('/test', function () {
     return response()->json(['message' => 'Backend fonctionne !']);
 });
