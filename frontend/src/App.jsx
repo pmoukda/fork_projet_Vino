@@ -1,51 +1,67 @@
-// Importation des composants et pages
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
+import { useState } from "react";
+import "./App.css";
+// Pages
 import Catalogue from "./pages/Catalogue";
 import FicheProduit from "./pages/FicheProduit";
-import CellierUtilisateur from "./components/CellierUtilisateur";
 import Auth from "./pages/Auth";
 import Inscription from "./pages/Inscription";
+import AjouterProduitCellier from "./pages/AjouterProduitCellier";
 import CreerCellier from "./pages/CreerCellier";
-import MenuMobile from "./components/MenuMobile";
-import CompteUsager from "./components/CompteUsager";
+import ListeAchats from "./pages/ListeAchats";
+import ReinitialiserMotDePasse from "./pages/ReinitialiserMotDePasse";
+import MotDePasseOublie from "./pages/MotDePasseOublie";
+
+// Composants
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AjouterProduitCellier from './pages/AjouterProduitCellier';
-import MotDePasseOublie from "./pages/MotDePasseOublie";
-import ReinitialiserMotDePasse from "./pages/ReinitialiserMotDePasse";
-import "./App.css";
-import { useState } from "react";
+import MenuMobile from "./components/MenuMobile";
+import CompteUsager from "./components/CompteUsager";
+import CellierUtilisateur from "./components/CellierUtilisateur";
 
 
-// Faire afficher les vues de react
 function App() {
 
   const [recherche, setRecherche] = useState(""); 
-  
+
   return (
     <div className="min-h-screen flex flex-col">
+      {/* HEADER */}
       <Header recherche={recherche} setRecherche={setRecherche} />
+
+      {/* MAIN CONTENT */}
       <main className="pb-24 flex-1 px-4">
-        {" "}
-        {/* important pour ne pas cacher le contenu */}
         <Routes>
-          <Route path="/inscription" element={<Inscription />} />
+
+          {/* Auth */}
           <Route path="/" element={<Auth />} />
           <Route path="/mdp-oublie" element={<MotDePasseOublie />} />
           <Route path="/mdp-reinitialise" element={<ReinitialiserMotDePasse />} />
+          <Route path="/inscription" element={<Inscription />} />
+
+          {/* Compte */}
           <Route path="/compte" element={<CompteUsager />} />
-                 
-          <Route path="/produits" element={<Catalogue />} />      
+
+          {/* Produits */}
+          <Route path="/produits" element={<Catalogue />} />
           <Route path="/produits/:id" element={<FicheProduit />} />
 
+          {/* Liste d’achats */}
+          <Route path="/liste-achats" element={<ListeAchats />} />
+
+          {/* Celliers */}
+           <Route path="/celliers" element={<CellierUtilisateur />} />
           <Route path="/user/:id/celliers" element={<CellierUtilisateur />} />
-          <Route path="/cellier/creer" element={<CreerCellier />} />          
+          <Route path="/cellier/creer" element={<CreerCellier />} />
           <Route path="/user/:userId/celliers/produits/:produitId" element={<AjouterProduitCellier />} />
-          <Route path="/celliers" element={<CellierUtilisateur />} />
-        </Routes>       
+
+        </Routes>
       </main>
+
+      {/* FOOTER & MENU MOBILE */}
       <Footer />
-      <MenuMobile /> {/* ajout Menu application mobile */}
+      <MenuMobile />
+
     </div>
   );
 }
