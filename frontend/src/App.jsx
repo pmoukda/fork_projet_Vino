@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import MenuMobile from "./components/MenuMobile";
 import CompteUsager from "./components/CompteUsager";
 import CellierUtilisateur from "./components/CellierUtilisateur";
+import MotDePasseOublie from "./pages/MotDePasseOublie";
 
 import "./App.css";
 
@@ -54,6 +55,8 @@ function App() {
             path="/user/:userId/celliers/produits/:produitId"
             element={<AjouterProduitCellier />}
           />
+          {/* Mot de passe oublié*/}
+          <Route path="/mdp-oublie" element={<MotDePasseOublie />} />
 
         </Routes>
       </main>

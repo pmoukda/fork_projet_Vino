@@ -69,7 +69,7 @@ import api from "../api/axios";
                     </ul>
 
                     <div className="flex gap-5 justify-left items-center ">
-                        <Link className="block w-full" to={user ? `/user/${user.id}/celliers/produits/${p.id}` : ""}>
+                        <Link className="block w-full" to={user ? `/user/${user.id}/celliers/produits/${produit.id}` : ""}>
                             <button className="mt-6 px-6 py-3 border-2 hover:border-[var(--couleur-text)] hover:text-[var(--couleur-text)] hover:bg-white rounded-lg bg-[var(--couleur-text)] text-white transition duration-300 cursor-pointer text-sm md:text-md lg:text-lg">Ajouter au cellier</button>
                         </Link>
                         <Link>
