@@ -11,7 +11,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
     const [pays, setPays] = useState([]);
     const [openPays, setOpenPays] = useState(false);
     const [filtreOuvert, setFiltreOuvert] = useState(false);
-    
+
     const lesFiltresOrdre = [
         "Millésime (Croissant)",
         "Millésime (Décroissant)",
@@ -19,6 +19,7 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
         "Prix (Décroissant)"
     ];
 
+    /* Lors que le site tente de trouver l'identité des produits */
     useEffect(() => {
         api.get("/identite_produit") 
             .then(res => setIdentites(res.data))
