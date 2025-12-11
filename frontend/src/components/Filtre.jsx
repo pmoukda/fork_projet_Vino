@@ -18,17 +18,21 @@ export default function Filtre({ filtre, setFiltre, ordre, setOrdre }) {
 		"Prix (Décroissant)"
 	];
 
+    /* Lors que le site tente de trouver l'identité des produits */
 	useEffect(() => {
 		api.get("/identite_produit") 
 			.then(res => setIdentites(res.data))
 			.catch(err => console.error(err));
 	}, []);
+
 	useEffect(() => {
 		api.get("/pays_origine").then(res => setPays(res.data));
 	}, []);
+    
     if (!lesFiltresOrdre) return <div className="points">
         <span></span><span></span><span></span>
     </div>;
+
 	return (
         <form className="formulaire_de_filtre" style={{ marginBottom: "1rem" }}>
             
