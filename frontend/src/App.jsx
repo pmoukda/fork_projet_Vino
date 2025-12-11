@@ -55,6 +55,10 @@ function App() {
           <Route path="/cellier/creer" element={<CreerCellier />} />
           <Route path="/user/:userId/celliers/produits/:produitId" element={<AjouterProduitCellier />} />
 
+
+          {/* Liste d’achats */}
+          <Route path="/liste-achats" element={<ListeAchats />} />
+
         </Routes>
       </main>
 
