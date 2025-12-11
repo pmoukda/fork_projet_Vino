@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import BoutonDeconnexion from "./BoutonDeconnexion";
 import GetUsager from "./GetUsager";
 import GetToken from "./GetToken";
@@ -21,14 +21,13 @@ export default function Header({deconnexion, recherche, setRecherche,isAuth, set
       {/* ===== HEADER DESKTOP ===== */}
       <header className="bg-white py-4 px-6 shadow flex justify-between items-center">
 
-        <h2 className="text-3xl font-serif text-red-950">Vino</h2>
+        <h2 className="text-3xl font-serif titre"><img className="v-titre" src='/images/Vino_Rouge.png'></img>ino</h2>
 
         {/* BARRE DE RECHERCHE */}
         {estConnecte && (
         <div className="hidden md:flex items-center w-1/4">
           <Recherche recherche={recherche} setRecherche={setRecherche} />
         </div>
-
         )}
 
         {/* ===== NAVIGATION ===== */}
@@ -105,28 +104,23 @@ export default function Header({deconnexion, recherche, setRecherche,isAuth, set
 
         {/* Recherche mobile */}
         {estConnecte && (
-          <div className="bg-white rounded-full px-4 py-2 flex items-center mb-8 border">
-            <Search className="text-red-950 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Rechercher..."
-              value={recherche}
-              onChange={(e) => setRecherche(e.target.value)}
-              className="ml-2 w-full bg-transparent focus:outline-none text-red-950"
-            />
-          </div>
+        <div className="flex md:hidden items-center w-full mt-4 mb-4 md:mt-0">
+            <Recherche recherche={recherche} setRecherche={setRecherche} />
+        </div>
         )}
 
         {/* NAV mobile */}
         <nav className="flex flex-col gap-4 text-lg font-medium">
+
           {token && <Link to="/produits" onClick={() => setMenuOuvert(false)}>Catalogue</Link>}
           {token && <Link to="/liste-achats" onClick={() => setMenuOuvert(false)}>Achats</Link>}
+
           
           {estConnecte && (
             <>
               <button
                 onClick={() => setCompteOuvert(!compteOuvert)}
-                className="flex justify-between w-full text-left"
+                className="flex justify-between w-full text-left mb-4"
               >
                 Mon compte
                 {compteOuvert ? <ChevronUp /> : <ChevronDown />}

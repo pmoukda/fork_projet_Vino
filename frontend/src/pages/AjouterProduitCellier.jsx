@@ -81,61 +81,63 @@ import { useNavigate } from "react-router-dom";
         <span></span><span></span><span></span>
     </div>;
     return (
-        <div className="w-full min-h-screen flex flex-col items-center justify-center mb-[-50px] px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl mt-10 mb-10">Ajout de bouteilles au cellier</h1>            
-            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-4 bg-white rounded-lg shadow-md flex flex-col">                
+        <div className="flex flex-col items-center mb-[-50px] px-4 sm:px-6 lg:px-8">
+            <h1 className="text-2xl mt-20 mb-10">Ajout de bouteilles au cellier</h1>            
+            <div className="max-w-lg rounded-lg overflow-hidden shadow-md bg-white">                
                 <div className="carteColonne flex flex-col items-center">
                     <img
-                        className="w-full h-50 mb-4 rounded object-cover"
+                        className="w-full h-50 mb-4 object-cover"
                         src="/images/wine-1802763_640.jpg"
                         alt="Image cellier"
                     />
-                    <h2 className="text-xl sm:text-2xl font-semibold mb-3 mt-2">Garnir mon cellier</h2>
-                    <select
-                    className="w-full p-3 mb-4 text-lg sm:text-xl rounded-sm bouton-accent text-white bg-transparent focus:outline-none"
-                    
-                    onChange={e => setCellierSelectionne(e.target.value)} defaultValue={''}
-                    >
-                        <option className="" value=""  >Sélectionne ton cellier</option>
-                        {Array.isArray(celliers) && celliers.length > 0 ? (
-                            celliers.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)
-                        ) : (
-                            <option disabled>Aucun cellier</option>
-                        )}
-                    </select>
-                    <div className="flex w-full gap-2 ">
-                        <button
-                        onClick={() => setQuantite(q => Math.max(0, q - 1))}
-                        className="text-xl text-center w-40 font-bold px-4 py-2 rounded-lg bouton-raisin cursor-pointer border-white border-[2px]"
+                    <div className="p-4">
+                        <h2 className="text-xl sm:text-2xl font-semibold mb-3 mt-2">Garnir mon cellier</h2>
+                        <select name="cellier" id="cellier"
+                        className="w-full p-3 mb-4  mt-4 text-md sm:text-xl rounded-sm focus:outline-none block border border-gray-300 bouton-raisin  text-white"
+                        
+                        onChange={e => setCellierSelectionne(e.target.value)} defaultValue={''}
                         >
-                        -
-                        </button>
-                        <input
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            value={quantite}
-                            onChange={e => {
-                                const val = e.target.value.replace(/\D/g, "");
-                                setQuantite(Math.max(1, Math.min(99, Number(val) || 1)));
-                            }}
-                            className="text-xl w-full text-lg sm:text-xl rounded-md bouton-raisin text-center border-white border-[2px]"
-                            placeholder="0"
-                            />
+                            <option disabled value=""  >Sélectionner un cellier</option>
+                            {Array.isArray(celliers) && celliers.length > 0 ? (
+                                celliers.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)
+                            ) : (
+                                <option disabled>Aucun cellier</option>
+                            )}
+                        </select>
+                        <div className="flex w-full gap-2 ">
+                            <button
+                            onClick={() => setQuantite(q => Math.max(0, q - 1))}
+                            className="text-xl text-center w-40 font-bold px-4 py-2 rounded-lg bouton-raisin cursor-pointer border-white border-[2px]"
+                            >
+                            -
+                            </button>
+                            <input
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                value={quantite}
+                                onChange={e => {
+                                    const val = e.target.value.replace(/\D/g, "");
+                                    setQuantite(Math.max(1, Math.min(99, Number(val) || 1)));
+                                }}
+                                className="text-xl w-full text-lg sm:text-xl rounded-md bouton-raisin text-center border-white border-[2px]"
+                                placeholder="0"
+                                />
+                            <button
+                            onClick={() => setQuantite(q => Math.min(99, q + 1))}
+                            className="text-xl text-center w-40 text-lg sm:text-xl font-bold px-4 py-2 rounded bouton-raisin cursor-pointer border-white border-[2px]"
+                            >
+                            +
+                            </button>
+                        </div>
                         <button
-                        onClick={() => setQuantite(q => Math.min(99, q + 1))}
-                        className="text-xl text-center w-40 text-lg sm:text-xl font-bold px-4 py-2 rounded bouton-raisin cursor-pointer border-white border-[2px]"
+                            onClick={ajouterProduit}
+                            className="w-full flex gap-2 justify-center bouton-accent transition-colors"
                         >
-                        +
+                            Ajouter<FaWineBottle />
+
                         </button>
                     </div>
-                    <button
-                        onClick={ajouterProduit}
-                        className="w-full flex gap-2 justify-center items-center p-4 bouton-accent text-lg sm:text-xl text-white rounded cursor-pointer border-xs transition-colors"
-                    >
-                        <span>Ajouter</span><FaWineBottle />
-
-                    </button>
                 </div>
             </div>
             {/* Modal ajouté succès et quantité */}
