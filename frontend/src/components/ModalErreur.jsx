@@ -8,7 +8,7 @@ const ModaleErreur = ({visible, messageErreur, onFermer}) => {
                 <div className="flex justify-center gap-2">
                     <button
                         onClick={onFermer}
-                        className="px-4 py-2 rounded bg-red-500 text-white"
+                        className="px-4 py-2 mt-3 rounded bg-[var(--couleur-text)] text-white"
                     >
                         Fermer
                     </button>
